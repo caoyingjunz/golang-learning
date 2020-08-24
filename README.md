@@ -1,4 +1,5 @@
 # Golang learning
+test
 
 ## Kubernetes
 1. 写一个控制器，当一个应用启动的时候，保证其他的node上也有其镜像
