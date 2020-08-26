@@ -75,6 +75,18 @@ i. 完成 `dnat` 之后，报文完成所有 `PREROUTING` 表，进入 `routerin
 
 ![router](./pictures/router.png)
 
+
+
+**ClusterIP(headless)**  
+
+1. 什么是无头服务？ 
+[Headless Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
+
+2. 创建一个无头服务 —— 指定服务类型为 `ClusterIP`, 且设置 `Spec.ClusterIP` 为 `None`， 对于无头服务，`kubernetes` 不会为其分配 `ClusterIP`, `kube-proxy` 也不会处理(无规则下发)，由 `dns` 根据 `selector` 自动配置转发：
+
+a. 如果配置 `selector`, `DNS` 直接指向后端 `pods`  
+b. 如果未配置 `selector`, `DNS` 指向和 `service` 名称相同的任意后端, 或 externalName 类型的服务
+
 **NodePort**
 
 **LoadBalancer**
