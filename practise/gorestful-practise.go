@@ -4,22 +4,19 @@ package main
 // Refer to https://www.kubernetes.org.cn/1788.html
 // https://github.com/emicklei/go-restful/tree/master/examples
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
 	"net/http"
 
 	"github.com/emicklei/go-restful"
 )
 
-type User struct {
+type Userg struct {
 	Id, Name, Age string
 }
 
 type UserResource struct {
 	// normally one would use DAO (data access object)
-	users map[string]User
+	users map[string]Userg
 }
 
 type RequestBody struct {
@@ -83,7 +80,7 @@ func (u UserResource) findUser(request *restful.Request, response *restful.Respo
 //"age": "18"
 //}
 func (u *UserResource) createUser(request *restful.Request, response *restful.Response) {
-	usr := User{
+	usr := Userg{
 		Id: request.PathParameter("user-id"),
 	}
 
@@ -107,7 +104,7 @@ func (u *UserResource) createUser(request *restful.Request, response *restful.Re
 //"age": "18"
 //}
 func (u *UserResource) updateUser(request *restful.Request, response *restful.Response) {
-	usr := new(User)
+	usr := new(Userg)
 	userId := request.PathParameter("user-id")
 	// 将请求中的body获取
 	err := request.ReadEntity(&usr)
@@ -140,7 +137,7 @@ func main() {
 	wsContainer.Router(restful.CurlyRouter{})
 
 	// 创建自定义的Resource Handle(此处为UserResource)
-	u := UserResource{map[string]User{}}
+	u := UserResource{map[string]Userg{}}
 
 	// 创建WebService，并将WebService加入到Container中
 	u.Register(wsContainer)
