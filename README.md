@@ -18,7 +18,7 @@
 2. kuryr 代码分析（TODO）
 
 ## Golang
-1. logrus 的使用 (TODO)
+1. logrus 的使用 (WIP)
 2. 并发 goroutine (DONE)
 3. slice 排序 (DONE)
 4. channel 实现并发和锁 (DONE), 排他锁 (WIP)
