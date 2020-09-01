@@ -95,4 +95,11 @@ b. 如果未配置 `selector`, `DNS` 指向和 `service` 名称相同的任意�
 
 **NodePort**
 
+1. 创建一个 `NodePort` 类型的 `service`，访问集群的任一台节点的 ip + port（本例为31980） 均可以正常连接
+![nodeport](./pictures/nodeport.png)
+
+2. 检查被访问的节点（或者是任意节点）的 `iptables` 规则，数据包先后进入 `PREROUTING` 链的 `raw` 表，`mangle` 表， 和 `nat` 表（前文已介绍，raw 和 mangle 表均没有规则，默认通过），直接查看 `nat` 表规则
+
+
+
 **LoadBalancer**

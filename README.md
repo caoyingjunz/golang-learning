@@ -1,6 +1,6 @@
 # Golang Learning
 
-## Kubernetes (TODO)
+## Kubernetes
 1. 写一个控制器，当一个应用启动的时候，保证其他的node上也有其镜像
 2. Prometheus 部署 [kube-prometheus](https://github.com/coreos/kube-prometheus)
 3. kubectl plugin [plugins](https://github.com/ahmetb/kubectx)
