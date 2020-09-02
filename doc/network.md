@@ -19,7 +19,7 @@ tables: raw, mangle, filter, nat
 chains: PREROUTING, FORWARD, INPUT, OUTPUT, POSTROUTING
 ```
 
-![tables](./pictures/tablesflow.png)
+![iptables](./pictures/iptablesflow.png)
 
 **PREROUTING**
 1. 数据包到达网络设备
