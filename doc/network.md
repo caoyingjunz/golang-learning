@@ -1,17 +1,17 @@
 # Kubernetes Service 随笔
 
 ## 环境信息
-version: v1.18.2  
-cni: flannel  
-proxyMode: iptables
+- kube version: v1.18.2
+- cri: docker
+- cni: flannel
+- proxyMode: iptables
 
 ## iptables
 从 **iptables** 说起
 
-iptables: is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different Netfilter modules
+iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different Netfilter modules
 
-[Iptables](https://en.wikipedia.org/wiki/Iptables)  
-[Netfilter](https://en.wikipedia.org/wiki/Netfilter)
+详细请参考: [Iptables](https://en.wikipedia.org/wiki/Iptables) 和 [Netfilter](https://en.wikipedia.org/wiki/Netfilter)
 
 ### iptables 四表五链的工作流程
 ```
@@ -72,7 +72,6 @@ i. 完成 `dnat` 之后，报文完成所有 `PREROUTING` 表，进入 `routerin
 数据报文的 `源ip` 为本地ip，目的ip 为 dnat 之后的ip（172.30.1.12:80)，查看本地路由, 此时有两种情况
   i.1 命中本节点，报文进入 cni0 设备
   i.2 命中其他节点，报文进入 flannel.1 设备
-
 ![router](./pictures/router.png)
 
 **ClusterIP(headless)**  
@@ -98,8 +97,15 @@ b. 如果未配置 `selector`, `DNS` 指向和 `service` 名称相同的任意�
 1. 创建一个 `NodePort` 类型的 `service`，访问集群的任一台节点的 ip + port（本例为31980）均可以正常连接
 ![nodeport](./pictures/nodeport.png)
 
-2. 检查被访问的节点（或者是任意节点）的 `iptables` 规则，数据包先后进入 `PREROUTING` 链的 `raw` 表，`mangle` 表， 和 `nat` 表（前文已介绍，raw 和 mangle 表均没有规则，默认通过），直接查看 `nat` 表规则
+2. 查看被访问的节点（或者是任意节点）的 `iptables` 规则，数据包先后进入 `PREROUTING` 链的 `raw` 表，`mangle` 表， 和 `nat` 表（前文已介绍，raw 和 mangle 表均没有规则，默认通过），直接查看 `nat` 表规则
 
-3. 和 `ClusterIP` 场景相关，数据包会命中 `PREROUTING` 的 `KUBE-SERVICES`， 
+3. 和 `ClusterIP` 场景相关，数据包会命中 `PREROUTING` 的 `KUBE-SERVICES` 链，然后命中其子链 `KUBE-NODEPORTS`
+![kube-nodeport](./pictures/kube-nodeport.png)
+
+4. 数据包进入 `KUBE-NODEPORTS` 后，根据 `dpt` 先后命中 `KUBE-MARK-MASQ`(0x4000) 和 `KUBE-SVC-37ROJ3MK6RKFMQ2B` 并在 `KUBE-SVC-37ROJ3MK6RKFMQ2B` 链中完成负载均衡 (statistic mode random)
+![lb](./pictures/lb.png)
+
+1. 随后数据包进入负载均衡之后的链中，本例是 `KUBE-SEP-4XK7BREWKZE733EB` 链，查看 `KUBE-SEP-4XK7BREWKZE733EB` 规则，发现数据包命中 `dnat` 规则，在此完成 `nodeport:port` 到 `pod:port` 的转换，数据包根据目的ip，匹配路由，到达后端pod
+![nodednat](./pictures/nodednat.png)
 
 **LoadBalancer**
