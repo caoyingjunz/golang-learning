@@ -67,10 +67,25 @@ chains: PREROUTING, FORWARD, INPUT, OUTPUT, POSTROUTING
 ![KUBE-SEP-EZ6FKUNEIONYFN4Z](./pictures/KUBE-SEP-EZ6FKUNEIONYFN4Z.png)
 
 8. 完成 `dnat` 之后，报文完成所有 `PREROUTING` 表，进入 `routering decision` 阶段，
-数据报文的 `源ip` 为本地ip，目的ip 为 dnat 之后的ip（172.30.1.12:80)，查看本地路由, 此时有两种情况
+数据报文的 `源ip` 为本地ip，目的ip 为 dnat 之后的 ip ，查看本地路由, 此时有两种情况，会在步骤 **9** 和 **10** 中分别讨论
+![router](./pictures/router.png)
     - 命中本节点，报文进入 cni0 设备
     - 命中其他节点，报文进入 flannel.1 设备
-![router](./pictures/router.png)
+
+1. 路由命中本节点场景分析 (endpoint 为 172.30.0.35:80)
+    - 
+    - s
+    - d
+    - d
+    - d
+    - d
+    - s
+
+2.  路由命中其他节点场景分析 (endpoint 为 172.30.1.41:80)
+    - 是
+    - ddd
+    - d
+    - d
 
 **ClusterIP(headless)**
 
@@ -85,9 +100,9 @@ chains: PREROUTING, FORWARD, INPUT, OUTPUT, POSTROUTING
 ![headless](./pictures/headless-service.png)
 
 4. 通过 `nslookup` 解析无头服务域名对应的后端ip
-![nslookup](./pictures/nslookups.png)
+![nslookup](./pictures/headless2.png)
 
-5. 也就是说，无头服务通过 `dns` 的能力实现 `loadbalance` ，不经过 k8s 实现机制，直接将请求转发到后端的 `pod` 上
+5. 综上所述，无头服务通过 `dns` 的能力实现 `loadbalance` ，不经过 k8s 实现机制，直接将请求转发到后端的 `pod` 上
 
 **NodePort**
 
@@ -102,7 +117,7 @@ chains: PREROUTING, FORWARD, INPUT, OUTPUT, POSTROUTING
 4. 数据包进入 `KUBE-NODEPORTS` 后，根据 `dpt` 先后命中 `KUBE-MARK-MASQ`(0x4000) 和 `KUBE-SVC-37ROJ3MK6RKFMQ2B` 并在 `KUBE-SVC-37ROJ3MK6RKFMQ2B` 链中完成负载均衡 (statistic mode random)
 ![lb](./pictures/lb.png)
 
-1. 随后数据包进入负载均衡之后的链中，本例是 `KUBE-SEP-4XK7BREWKZE733EB` 链，查看 `KUBE-SEP-4XK7BREWKZE733EB` 规则，发现数据包命中 `dnat` 规则，在此完成 `nodeport:port` 到 `pod:port` 的转换，数据包根据目的ip，匹配路由，到达后端pod
+5. 随后数据包进入负载均衡之后的链中，本例是 `KUBE-SEP-4XK7BREWKZE733EB` 链，查看 `KUBE-SEP-4XK7BREWKZE733EB` 规则，发现数据包命中 `dnat` 规则，在此完成 `nodeport:port` 到 `pod:port` 的转换，数据包根据目的ip，匹配路由，到达后端pod
 ![nodednat](./pictures/nodednat.png)
 
 **LoadBalancer**
