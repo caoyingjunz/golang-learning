@@ -68,9 +68,9 @@ chains: PREROUTING, FORWARD, INPUT, OUTPUT, POSTROUTING
 
 8. 完成 `dnat` 之后，报文完成所有 `PREROUTING` 表，进入 `routering decision` 阶段，
 数据报文的 `源ip` 为本地ip，目的ip 为 dnat 之后的ip（172.30.1.12:80)，查看本地路由, 此时有两种情况
+![router](./pictures/router.png)
     - 命中本节点，报文进入 cni0 设备
     - 命中其他节点，报文进入 flannel.1 设备
-![router](./pictures/router.png)
 
 **ClusterIP(headless)**
 
@@ -85,9 +85,9 @@ chains: PREROUTING, FORWARD, INPUT, OUTPUT, POSTROUTING
 ![headless](./pictures/headless-service.png)
 
 4. 通过 `nslookup` 解析无头服务域名对应的后端ip
-![nslookup](./pictures/nslookups.png)
+![nslookup](./pictures/headless2.png)
 
-5. 也就是说，无头服务通过 `dns` 的能力实现 `loadbalance` ，不经过 k8s 实现机制，直接将请求转发到后端的 `pod` 上
+5. 综上所述，无头服务通过 `dns` 的能力实现 `loadbalance` ，不经过 k8s 实现机制，直接将请求转发到后端的 `pod` 上
 
 **NodePort**
 
