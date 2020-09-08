@@ -78,8 +78,14 @@ iptables is a user-space utility program that allows a system administrator to c
     - 数据包通过 `OUTPUT` 链后, 进行 `routering decision` ，随后数据包进入 `POSTROUTING` 链的 `mangle` 和 `nat` 表, `mangle` 表直接通过，数据包进入 `nat` 表会命中 `KUBE-POSTROUTING` 链，根据 `KUBE-MARK-MASQ` 的 `MARK` 完成 `MASQUERADE` . 至此，整个流程结束.
     ![KUBE-POSTROUTING](./pictures/kube-postrouting.png)
 
-10.  路由命中其他节点场景分析 (endpoint 为 172.30.1.41:80)
-    - ***TODO***
+10.  路由命中其他节点场景分析 (endpoint 为 172.30.4.43:80)
+    - 命中其他节点的数据包，将依次进入 `FORWARD` 链的 `mangle` 和 `filter` 表，命中 `filter` 表的 `KUBE-FORWARD` 链，完成 `FORWARD`.
+    ![kube-forward](./pictures/kube-forward.png)
+    - 数据包进入 `routering decision` 阶段的, 其 `目的ip` 为 `172.30.1.43`, 根据路由，出口为 `flannel.1` 下一条为 `172.30.4.0`
+    ![post-router](./pictures/postrouting.png)
+    - 随后数据包进入 `POSTROUTING` 链的 `mangle` 和 `nat` 表，命中 `nat` 表的 `KUBE-POSTROUTING`,  完成 `MASQUERADE` 后，数据包离开本机，到达目的主机
+    ![masq](./pictures/masq.png)
+
 
 **ClusterIP(headless)**
 
