@@ -25,6 +25,7 @@
 4. channel 实现并发和锁 (DONE), 排他锁 (WIP)
 5. go-restful (DONE)
 6. cobra (WIP)
+7. map 的同时读写 [sync.map](https://golang.org/pkg/sync/#Map)
 
 ## Docs
 1. [kubernetes 经典网络分析](./doc/network.md)
