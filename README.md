@@ -28,9 +28,9 @@
 7. map 的同时读写 [sync.map](https://golang.org/pkg/sync/#Map)
 8. context (WIP)
 9. 协程的调度机制(WIP)
-10. interface (WIP) 重点
+10. interface (WIP)
 
 ## Docs
 1. [kubernetes 经典网络分析](./doc/network.md)
-2. [kubectl exec实现分析](./doc/kube-exec.md)
+2. [kubectl exec 实现分析](./doc/kube-exec.md)
 3. [kubernetes 集群快速搭建](https://github.com/yingjuncao/kubernetes-ansible)
