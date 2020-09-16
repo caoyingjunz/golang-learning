@@ -117,8 +117,19 @@ iptables is a user-space utility program that allows a system administrator to c
 4. 数据包进入 `KUBE-NODEPORTS` 后，根据 `dpt` 先后命中 `KUBE-MARK-MASQ`(0x4000) 和 `KUBE-SVC-37ROJ3MK6RKFMQ2B` 并在 `KUBE-SVC-37ROJ3MK6RKFMQ2B` 链中完成负载均衡 (statistic mode random)
 ![lb](./pictures/lb.png)
 
-5. 随后数据包进入负载均衡之后的链中，本例是 `KUBE-SEP-4XK7BREWKZE733EB` 链，查看 `KUBE-SEP-4XK7BREWKZE733EB` 规则，发现数据包命中 `dnat` 规则，在此完成 `nodeport:port` 到 `pod:port` 的转换，数据包根据目的ip，匹配路由，到达后端pod
+5. 随后数据包进入负载均衡之后的链中，本例是 `KUBE-SEP-4XK7BREWKZE733EB` 链，查看 `KUBE-SEP-4XK7BREWKZE733EB` 规则，发现数据包命中 `dnat` 规则，在此完成 `nodeport:port` 到 `pod:port` 的转换，数据包会根据 `dnat` 后的 `目的ip`，匹配路由，到达后端 `pod`, 此时分两种情况，在 **6** 和 **7** 中分别讨论
 ![nodednat](./pictures/nodednat.png)
+
+6. `pod` 不在本节点，以 `172.30.4.24:80` 为例，此时数据包已通过 `PREROUTING`链, 根据 `路由`，将从 `flannel.1` 设备到达下一跳 `172.30.4.0`, 然后数据包进入 `FORWARD` 链
+
+    ![node-route2](./pictures/node-route2.png)
+    - 数据包依次通过 `FORWARD` 的 `mangle` 和 `filter` 表，未命中规则
+    - 数据包在通过 `FORWARD` 之后，再次进行 `路由` (需确认)
+    - 数据包进入 `POSTROUTING` 链的 `mangle` 和 `nat` 表, 命中 `nat` 表的 `KUBE-POSTROUTING` 链，完成 `MASQUERADE`, 进行 `snat`
+        ![node-masquerage](./pictures/nodeport-masqerade.png)
+    - 然后数据包命中 `POSTROUTING` 的 `RETURN` 规则，数据包完成全部规则，即将离开本节点，去往下一跳, 此时数据包的源ip为 本节点 `flannel.1` 的地址（伪装）, 目的地址为后端 `pod` 地址
+        ![return](./pictures/return.png)
+    - 然后数据包被送到目的 `pod` 所在的节点，进入其 `PREROUTING` 链
 
 ***TODO***
 
