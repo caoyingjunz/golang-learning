@@ -13,10 +13,12 @@
 10. 学习 loadbalancer 实现 [cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack)
 11. Iptables 实现负载均衡
 12. API Watch 实现[watch](https://www.jianshu.com/p/1cb577f750f0)
+13. 分析 `deployment` 创建流程（TODO）
 
 ## OpenStack
 1. zun 代码分析 （TODO）
 2. kuryr 代码分析（TODO）
+3. qinling 代码分析（TODO）
 
 ## Golang
 1. logrus 的使用 (DONE) [logrus](https://github.com/sirupsen/logrus)
@@ -26,7 +28,7 @@
 5. go-restful (DONE)
 6. cobra (WIP)
 7. map 的同时读写 [sync.map](https://golang.org/pkg/sync/#Map)
-8. context (TODO)
+8. context (WIP) [context](https://mp.weixin.qq.com/s/GpVy1eB5Cz_t-dhVC6BJNw)
 9. 协程的调度机制(TODO)
 10. interface (WIP)
 11. sync.Mutex (TODO)
