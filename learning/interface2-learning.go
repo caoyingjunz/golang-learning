@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+// TODO： 参考 context 的源码，并整合到 interface-learning.go
+
 type Interface interface {
 	Hello()
 	GoodBye()
