@@ -146,6 +146,8 @@ iptables is a user-space utility program that allows a system administrator to c
        ![kube-post2](./pictures/kube-post2.png)
     - 完成 `POSTROUTING` 链之后，数据包正式离开 `node` 节点，返回给外端的请求段. 至此，整个流程结束.
 
+7. `pod` 在本节点 （TODO）
+
 **LoadBalancer**
 
 ***TODO***
