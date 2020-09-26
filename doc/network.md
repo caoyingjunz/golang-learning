@@ -144,7 +144,9 @@ iptables is a user-space utility program that allows a system administrator to c
        ![kube-forward2](./pictures/kube-forward2.png)
     - 随后数据包进入 `POSTROUTING` 的 `mangle` 和 `nat` 表，命中 `nat` 表的 `KUBE-POSTROUTING` 链, 完成 `snat` (MASQUERADE)
        ![kube-post2](./pictures/kube-post2.png)
-    - 完成 `POSTROUTING` 链之后，数据包正式离开 `node` 节点，返回给外端的请求段. 至此，整个流程结束.
+    - 完成 `POSTROUTING` 链之后，数据包正式离开 `node` 节点，返回给外端的请求端. 至此，整个流程结束.
+
+7. `pod` 在本节点 （TODO）
 
 **LoadBalancer**
 
