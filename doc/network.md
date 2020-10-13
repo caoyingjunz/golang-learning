@@ -159,12 +159,12 @@ iptables is a user-space utility program that allows a system administrator to c
    - `ClusterIP` 是非 `namespaces` 隔离的
 
 ```bash
- apiVersion: v1
- kind: Service
- metadata:
- name: test-service
- namespace: default
- spec:
- type: ExternalName
- externalName: test-svc.default.svc.cluster.local
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: test-svc.default.svc.cluster.local
 ```
