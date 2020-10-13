@@ -151,3 +151,20 @@ iptables is a user-space utility program that allows a system administrator to c
 **LoadBalancer**
 
 ***TODO***
+
+**ExternalName**
+
+1. 直接作用于域名（可以用作 `kubernetes` 的跨 `namespaces` 服务访问）
+   - `服务名`是 `namespaces` 隔离的 (test-svc.default.svc.cluster.local)
+   - `ClusterIP` 是非 `namespaces` 隔离的
+
+```bash
+ apiVersion: v1
+ kind: Service
+ metadata:
+ name: test-service
+ namespace: default
+ spec:
+ type: ExternalName
+ externalName: test-svc.default.svc.cluster.local
+```
