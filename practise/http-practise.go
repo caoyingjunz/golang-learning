@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"strings"
-	"time"
 )
 
 func init() {
@@ -15,30 +14,18 @@ func init() {
 
 func main() {
 	client := &http.Client{}
-
-	t1 := time.Now()
 	// 发送一个请求
-	req, err := http.NewRequest("POST", "http://163.com/", strings.NewReader("key=value"))
-
+	req, err := http.NewRequest("POST", "http://163.com", strings.NewReader("key=value"))
+	defer req.Body.Close()
 	if err != nil {
-		log.Print("Get failed: err:", err)
+		fmt.Printf("err: %v", err)
 		return
 	}
-
-	defer req.Body.Close()
-
+	// 必须加 close
 	req.Header.Add("User-Agent", "myClient")
 
-	resp, err := client.Do(req)
+	resp, _ := client.Do(req)
 
-	if err != nil {
-		log.Print("Read body failed: ", err)
-		return
-	}
-
-	data, err := ioutil.ReadAll(resp.Body)
+	data, _ := ioutil.ReadAll(resp.Body)
 	fmt.Print(string(data))
-
-	fmt.Println(time.Now().Sub(t1))
-
 }
