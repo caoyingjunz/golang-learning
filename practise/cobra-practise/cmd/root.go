@@ -8,8 +8,6 @@ import (
 	"github.com/spf13/viper"
 	)
 
-
-
 var (
 	cfgFile     string
 	userLicense string
@@ -45,29 +43,6 @@ func init() {
 	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
 	viper.SetDefault("author", "NAME HERE <EMAIL ADDRESS>")
 	viper.SetDefault("license", "apache")
-
-	rootCmd.AddCommand(versionCmd)
-	rootCmd.AddCommand(tryCmd)
-}
-
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Print the version number of Hugo",
-	Long:  `All software has versions. This is Hugo's`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("run version command")
-	},
-}
-
-var tryCmd = &cobra.Command{
-	Use:   "try",
-	Short: "Try and possibly fail at something",
-	RunE: func(cmd *cobra.Command, args []string) error {
-		if err := func() (err error) {return  fmt.Errorf("ERROR")}(); err != nil {
-			return err
-		}
-		return nil
-	},
 }
 
 func er(msg interface{}) {
