@@ -2,13 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	)
-
-
+)
 
 var (
 	cfgFile     string
@@ -22,16 +18,13 @@ var (
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Hugo Static Site Generator v0.9 -- HEAD")
-	},
+		fmt.Println("Exec rootCmd")
+	    },
 	}
 )
 
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(os.Stderr, err)
-		os.Exit(1)
-	}
+func Execute() error {
+	return rootCmd.Execute()
 }
 
 func init() {
@@ -45,34 +38,6 @@ func init() {
 	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
 	viper.SetDefault("author", "NAME HERE <EMAIL ADDRESS>")
 	viper.SetDefault("license", "apache")
-
-	rootCmd.AddCommand(versionCmd)
-	rootCmd.AddCommand(tryCmd)
-}
-
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Print the version number of Hugo",
-	Long:  `All software has versions. This is Hugo's`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("run version command")
-	},
-}
-
-var tryCmd = &cobra.Command{
-	Use:   "try",
-	Short: "Try and possibly fail at something",
-	RunE: func(cmd *cobra.Command, args []string) error {
-		if err := func() (err error) {return  fmt.Errorf("ERROR")}(); err != nil {
-			return err
-		}
-		return nil
-	},
-}
-
-func er(msg interface{}) {
-	fmt.Println("Error:", msg)
-	os.Exit(1)
 }
 
 func initConfig() {
