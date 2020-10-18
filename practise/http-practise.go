@@ -22,11 +22,11 @@ func main() {
 		return
 	}
 
-	// 增加header 或者 cookes
+	// 增加header 或者 cookes (可选)
 	req.Header.Add("Content-Type", "application/json")
 
-    // 增加 cookes
-    cookie1 := &http.Cookie{Name: "name", Value: "caoyingjun"}
+    // 增加 cookes (可选)
+    cookie1 := &http.Cookie{Name: "name", Value: "caoyingjun", HttpOnly: true}
 	req.AddCookie(cookie1)
 
 	resp, err := client.Do(req)
