@@ -21,7 +21,13 @@ var (
 	Short: "A short rootCmd demo",
 	Long: `A Long rootCmd demo`,
 
+	// 不用也不能跟任何 positive args
 	Args: func(cmd *cobra.Command, args []string) error {
+		for _, arg := range args {
+			if len(arg) > 0 {
+				return fmt.Errorf("%q does not take any arguments, got %q", cmd.CommandPath(), args)
+			}
+		}
 		return nil
 	},
 
@@ -32,9 +38,13 @@ var (
 	PreRun: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("run rootCmd PreRun with args: %v\n", args)
 		},
+
+	// rootCmd 可以不实现，子命令来实现
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Run rootCmd with args:", args)
+		fmt.Println("Verbose is:", Verbose)
+		fmt.Println("author is:", author)
 	    },
+
 	PostRun: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("Run rootCmd PostRun with args: %v\n", args)
 	    },
@@ -60,7 +70,7 @@ func init() {
 	rootCmd.Flags().StringVarP(&Source, "source", "s", "", "source directory to read from")
 
 	// Bind Flags with Config（vipers）
-	rootCmd.PersistentFlags().StringVarP(&author, "author", "a", "caoyingjun", "Author name for the demo")
+	rootCmd.PersistentFlags().StringVarP(&author, "author", "a", "Caoyingjun", "Author name for the demo")
     viper.BindPFlag("auther", rootCmd.PersistentFlags().Lookup("auther"))
 
 	// 全局必须的flag
