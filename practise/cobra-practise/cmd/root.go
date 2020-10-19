@@ -22,6 +22,12 @@ var (
 	Long: `A Long rootCmd demo`,
 
 	Args: func(cmd *cobra.Command, args []string) error {
+		fmt.Println(args)
+		for _, arg := range args {
+			if len(arg) > 0 {
+				return fmt.Errorf("%q does not take any arguments, got %q", cmd.CommandPath(), args)
+			}
+		}
 		return nil
 	},
 
@@ -32,9 +38,11 @@ var (
 	PreRun: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("run rootCmd PreRun with args: %v\n", args)
 		},
+
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Run rootCmd with args:", args)
 	    },
+
 	PostRun: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("Run rootCmd PostRun with args: %v\n", args)
 	    },
