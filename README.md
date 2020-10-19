@@ -26,7 +26,7 @@
 3. slice 排序 (DONE)
 4. channel 实现并发和锁 (DONE), 排他锁 (WIP)
 5. go-restful (DONE)
-6. cobra (WIP)
+6. cobra (DONE)
 7. map 的同时读写 [sync.map](https://golang.org/pkg/sync/#Map)
 8. context (WIP) [context](https://mp.weixin.qq.com/s/GpVy1eB5Cz_t-dhVC6BJNw)
 9. 协程的调度机制(TODO)
