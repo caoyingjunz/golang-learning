@@ -21,12 +21,12 @@
 3. qinling 代码分析（TODO）
 
 ## Golang
-1. logrus 的使用 (DONE) [logrus](https://github.com/sirupsen/logrus)
+1. logrus 的使用 (DONE) [官方文档](https://github.com/sirupsen/logrus)
 2. 并发 goroutine (DONE)
 3. slice 排序 (DONE)
 4. channel 实现并发和锁 (DONE), 排他锁 (WIP)
 5. go-restful (DONE)
-6. cobra (WIP)
+6. cobra (DONE) [官方文档](https://github.com/spf13/cobra)
 7. map 的同时读写 [sync.map](https://golang.org/pkg/sync/#Map)
 8. context (WIP) [context](https://mp.weixin.qq.com/s/GpVy1eB5Cz_t-dhVC6BJNw)
 9. 协程的调度机制(TODO)
