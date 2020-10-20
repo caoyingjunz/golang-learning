@@ -33,8 +33,8 @@
 10. interface (WIP)
 11. sync.Mutex (TODO)
 12. gRPC (TODO)[官方文档](https://github.com/grpc/grpc-go)
-13. yaml (TODO)
-14. 匿名函数
+13. yaml (WIP) [yaml](https://www.jianshu.com/p/84499381a7da)
+14. 匿名函数 (DONE)
 15. go-gorm (TODO)[中文文档](http://gorm.book.jasperxu.com/) | [官方文档](https://github.com/go-gorm/gorm)
 
 ## Docs
