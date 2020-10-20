@@ -25,9 +25,9 @@ func main() {
 		fmt.Println("defualt")
 	}
 
-    // 支持分支表达式
-    var num = 7
-	switch {  // switch后面 可以不加值
+	// 支持分支表达式
+	var num = 7
+	switch { // switch后面 可以不加值
 	case num > 8 && num < 5:
 		fmt.Println("aaa")
 	default:
@@ -35,8 +35,8 @@ func main() {
 	}
 
 	// 处理指针的用法
-	var t interface{}  // 重点，后续用的比较多
-    t = 10
+	var t interface{} // 重点，后续用的比较多
+	t = 10
 	switch tv := t.(type) {
 	case int:
 		fmt.Println("答应t的值", t, "类型为", fmt.Sprintf("%T", tv))

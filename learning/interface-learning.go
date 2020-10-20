@@ -41,7 +41,7 @@ type GameService struct {
 }
 
 func (g *GameService) Start() {
-    fmt.Println("Starting now")
+	fmt.Println("Starting now")
 }
 
 func main() {

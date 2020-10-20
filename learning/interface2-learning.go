@@ -9,7 +9,6 @@ import (
 type Interface interface {
 	Hello()
 	GoodBye()
-
 }
 
 func Hello(i Interface) {
@@ -20,7 +19,7 @@ func GoodBye(i Interface) {
 	i.GoodBye()
 }
 
-type Go struct {}
+type Go struct{}
 
 func (g Go) Hello() {
 	fmt.Println("Hello, I am Go")
@@ -29,7 +28,7 @@ func (g Go) Hello() {
 func (g Go) GoodBye() {
 }
 
-type Python struct {}
+type Python struct{}
 
 func (p Python) Hello() {
 	fmt.Println("Hello, I am python")
@@ -39,11 +38,11 @@ func (p Python) GoodBye() {
 
 }
 
-func main()  {
+func main() {
 	g := Go{}
 	Hello(g)
 
-    p := Python{}
-    Hello(p)
+	p := Python{}
+	Hello(p)
 
 }
