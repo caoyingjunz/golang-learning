@@ -24,9 +24,9 @@ func (m MyStringList) Swap(i, j int) {
 
 // 结构体排序
 type Person struct {
-	Id string `json:"id"`
+	Id   string `json:"id"`
 	Name string `json:"name"`
-	Age string `json:"age"`
+	Age  string `json:"age"`
 }
 
 type PersonSlice []Person
@@ -43,7 +43,6 @@ func (p PersonSlice) Less(i, j int) bool {
 	return p[i].Id < p[j].Id
 }
 
-
 func main() {
 	// 测试切片
 	var names MyStringList
@@ -53,31 +52,31 @@ func main() {
 	fmt.Println(names)
 
 	// 测试结构体
-    var persion PersonSlice
+	var persion PersonSlice
 	persion = []Person{
 		{
-			Id: "2",
+			Id:   "2",
 			Name: "test2",
-			Age: "2",
+			Age:  "2",
 		},
 		{
-			Id: "1",
+			Id:   "1",
 			Name: "test1",
-		    Age: "1",
+			Age:  "1",
 		},
 		{
-			Id: "4",
+			Id:   "4",
 			Name: "test4",
-			Age: "4",
+			Age:  "4",
 		},
 		{
-			Id: "3",
-		    Name: "test3",
-		    Age: "3",
+			Id:   "3",
+			Name: "test3",
+			Age:  "3",
 		},
 	}
 
-    fmt.Println(persion)
+	fmt.Println(persion)
 	sort.Sort(persion)
 	fmt.Println(persion)
 }

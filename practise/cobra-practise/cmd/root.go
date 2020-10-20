@@ -7,49 +7,49 @@ import (
 )
 
 var (
-	cfgFile     string
+	cfgFile string
 
-	author string
+	author  string
 	Verbose bool
-	Source string
-	Region string
+	Source  string
+	Region  string
 )
 
 var (
 	rootCmd = &cobra.Command{
-	Use:   "rootCmd [OPTIONS] [COMMANDS]",
-	Short: "A short rootCmd demo",
-	Long: `A Long rootCmd demo`,
+		Use:   "rootCmd [OPTIONS] [COMMANDS]",
+		Short: "A short rootCmd demo",
+		Long:  `A Long rootCmd demo`,
 
-	// 不用也不能跟任何 positive args
-	Args: func(cmd *cobra.Command, args []string) error {
-		for _, arg := range args {
-			if len(arg) > 0 {
-				return fmt.Errorf("%q does not take any arguments, got %q", cmd.CommandPath(), args)
+		// 不用也不能跟任何 positive args
+		Args: func(cmd *cobra.Command, args []string) error {
+			for _, arg := range args {
+				if len(arg) > 0 {
+					return fmt.Errorf("%q does not take any arguments, got %q", cmd.CommandPath(), args)
+				}
 			}
-		}
-		return nil
-	},
-
-	// 以如下顺序执行: PersistentPreRun, PreRun, Run, PostRun, PersistentPostRun
-    PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Run rootCmd PersistentPreRun with args: %v\n", args)
-		},
-	PreRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("run rootCmd PreRun with args: %v\n", args)
+			return nil
 		},
 
-	// rootCmd 可以不实现，子命令来实现
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Verbose is:", Verbose)
-		fmt.Println("author is:", author)
-	    },
+		// 以如下顺序执行: PersistentPreRun, PreRun, Run, PostRun, PersistentPostRun
+		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			fmt.Printf("Run rootCmd PersistentPreRun with args: %v\n", args)
+		},
+		PreRun: func(cmd *cobra.Command, args []string) {
+			fmt.Printf("run rootCmd PreRun with args: %v\n", args)
+		},
 
-	PostRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Run rootCmd PostRun with args: %v\n", args)
-	    },
-	PersistentPostRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Run rootCmd PersistentPostRun with args: %v\n", args)
+		// rootCmd 可以不实现，子命令来实现
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("Verbose is:", Verbose)
+			fmt.Println("author is:", author)
+		},
+
+		PostRun: func(cmd *cobra.Command, args []string) {
+			fmt.Printf("Run rootCmd PostRun with args: %v\n", args)
+		},
+		PersistentPostRun: func(cmd *cobra.Command, args []string) {
+			fmt.Printf("Run rootCmd PersistentPostRun with args: %v\n", args)
 		},
 	}
 )
@@ -71,13 +71,13 @@ func init() {
 
 	// Bind Flags with Config（vipers）
 	rootCmd.PersistentFlags().StringVarP(&author, "author", "a", "Caoyingjun", "Author name for the demo")
-    viper.BindPFlag("auther", rootCmd.PersistentFlags().Lookup("auther"))
+	viper.BindPFlag("auther", rootCmd.PersistentFlags().Lookup("auther"))
 
 	// 全局必须的flag
 	//rootCmd.PersistentFlags().StringVarP(&Region, "region", "r", "", "global region (required)")
 	//rootCmd.MarkPersistentFlagRequired("region")
 
-    // local 必须的flag
+	// local 必须的flag
 	//rootCmd.Flags().StringVarP(&Region, "region", "r", "", "local region (required)")
 	//rootCmd.MarkFlagRequired("region")
 }
