@@ -21,7 +21,7 @@ type UserResource struct {
 
 type RequestBody struct {
 	Name string
-	Age string
+	Age  string
 }
 
 func (u UserResource) Register(container *restful.Container) {
@@ -113,12 +113,12 @@ func (u *UserResource) updateUser(request *restful.Request, response *restful.Re
 		return
 	}
 
-    id := usr.Id
-    name := usr.Name
-    age := usr.Age
-    fmt.Println(userId, id, name, age)
+	id := usr.Id
+	name := usr.Name
+	age := usr.Age
+	fmt.Println(userId, id, name, age)
 	u.users[usr.Id] = *usr
-    response.WriteEntity(usr)
+	response.WriteEntity(usr)
 }
 
 //DELETE  http://127.0.0.1:8080/users/test

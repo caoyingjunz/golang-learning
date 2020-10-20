@@ -25,9 +25,8 @@ func main() {
 		panic(cErr)
 	}
 	pods, err := clientset.CoreV1().Pods("default").List(metav1.ListOptions{})
-    if err != nil {
-        panic(err)
+	if err != nil {
+		panic(err)
 	}
-    fmt.Println(pods)
+	fmt.Println(pods)
 }
-

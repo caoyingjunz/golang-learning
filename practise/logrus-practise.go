@@ -42,7 +42,7 @@ func main() {
 	// 是否需要打印行数和文件名称（影响性能），也可以对比较长的文件名进行切割，去除不必要的目录
 	//log.SetReportCaller(true)
 
-	log.WithFields(logrus.Fields{"request_id":"666"}).Info("测试 info ")
-	log.WithFields(logrus.Fields{"request_id":"888"}).Warn("测试 warn ")
-	log.WithFields(logrus.Fields{"request_id":"888"}).Error("测试 error ")
+	log.WithFields(logrus.Fields{"request_id": "666"}).Info("测试 info ")
+	log.WithFields(logrus.Fields{"request_id": "888"}).Warn("测试 warn ")
+	log.WithFields(logrus.Fields{"request_id": "888"}).Error("测试 error ")
 }
