@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"golang-learning/learning/importstrut"
+	"golang-learning/learning/import-learning/app"
 )
 
 type People struct {
@@ -58,8 +58,7 @@ func main() {
 	//fmt.Println(p.GetValue())
 	//fmt.Println(p.value)
 
-	t := &importstrut.Tsss{}
-	t.Test()
+	t := &app.Test3()
 
 	p := new(myint)
 

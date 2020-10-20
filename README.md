@@ -32,7 +32,9 @@
 9. 协程的调度机制(TODO)
 10. interface (WIP)
 11. sync.Mutex (TODO)
-12. gRPC (TODO)
+12. gRPC (TODO)[官方文档](https://github.com/grpc/grpc-go)
+13. yaml (TODO)
+14. 匿名函数
 
 ## Docs
 1. [kubernetes 经典网络分析](./doc/network.md)

@@ -4,7 +4,7 @@ import "fmt"
 
 type Test struct {
 	Name string
-	Age string
+	Age  string
 }
 
 // 接受体是指针，会保存set的属性
@@ -15,15 +15,15 @@ func (t *Test) Set(name, age string) {
 	t.Age = age
 }
 
-func (t *Test) GetName() string  {
+func (t *Test) GetName() string {
 	return t.Name
 }
 
-func main()  {
+func main() {
 
 	t := &Test{
 		Name: "caoyignjun",
-		Age: "18",
+		Age:  "18",
 	}
 	var x bool
 	// 同时注意下defer，执行的值 只是运行到代码这行的

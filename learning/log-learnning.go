@@ -11,7 +11,7 @@ func testErr() (err error) {
 }
 
 func main() {
-    err := testErr()
+	err := testErr()
 	log.Printf("失败: %v", err)
 	log.Printf("失败: %v", err.Error())
 }

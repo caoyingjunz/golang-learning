@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func main()  {
+func main() {
 	// seed 用来确保随机，否则就是固定的值
 	rand.Seed(time.Now().UnixNano())
 	fmt.Println(rand.Intn(10))
