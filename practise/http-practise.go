@@ -15,12 +15,13 @@ func main() {
 	client := &http.Client{}
 	// 发送一个 POST 请求
 	req, err := http.NewRequest("POST", Url, strings.NewReader("key=value"))
-	// 必须加 close 去关闭 连接
-	defer req.Body.Close()
 	if err != nil {
 		fmt.Printf("err: %v", err)
 		return
 	}
+
+	// 必须加 close 去关闭 连接
+	defer req.Body.Close()
 
 	// 增加header 或者 cookes (可选)
 	req.Header.Add("Content-Type", "application/json")
