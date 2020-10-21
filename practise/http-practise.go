@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -50,8 +49,8 @@ func main() {
 	}
 
 	// 2. 除了 timeout设置，也可以通过 context
-	ctx, _ := context.WithTimeout(context.Background(), time.Second)
-	req.WithContext(ctx)
+	//ctx, _ := context.WithTimeout(context.Background(), time.Second)
+	//req.WithContext(ctx)
 
 	// 增加header 或者 cookes (可选)
 	req.Header.Add("Content-Type", "application/json")
