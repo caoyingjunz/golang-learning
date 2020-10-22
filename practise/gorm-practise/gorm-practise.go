@@ -7,23 +7,20 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+
+	"golang-learning/practise/gorm-practise/models"
 )
+
+// refer to http://gorm.book.jasperxu.com
 
 var (
-	id   int
-	name string
-	DB   *gorm.DB
+	DB *gorm.DB
 )
-
-type User struct {
-	ID   int    `gorm:"primary_key"`
-	Name string `gorm:"type:varchar(16);not null;"`
-}
 
 func init() {
 	user := "kubeloader"
 	password := "kubeloader"
-	ip := "172.16.50.151"
+	ip := "103.39.211.122"
 	port := 3306
 	database := "kubeloader"
 	dbConnection := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", user, password, ip, port, database)
@@ -37,22 +34,25 @@ func init() {
 	// set the connect pools
 	DB.DB().SetMaxIdleConns(10)
 	DB.DB().SetMaxOpenConns(100)
+	// 设置非复数表名
+	DB.SingularTable(true)
 
-	if !DB.HasTable(&User{}) {
+	// 检查表是否存在
+	if !DB.HasTable(&models.User{}) {
 		if err := DB.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").
-			CreateTable(&User{}).
+			CreateTable(&models.User{}).
 			Error; err != nil {
 			panic(err)
 		}
 	}
-}
 
-func wait() {
-	time.Sleep(time.Second * 2)
+	// 增加索引
+	//DB.Model(&User{}).AddIndex("idx_user_name", "name")
+	// 为`name`, `age`列添加索引`idx_user_name_age`
+	DB.Model(&models.User{}).AddIndex("idx_user_name_age", "name", "age")
 }
 
 func main() {
-
 	defer DB.Close()
 
 	// insert data into DB
@@ -63,27 +63,24 @@ func main() {
 	if err := DB.Create(user).Error; err != nil {
 		panic(err)
 	}
-	log.Print("Create")
+	log.Printf("Create")
 
-	wait()
 	// Get data from DB
 	row := DB.Model(&User{}).Where("id = ?", 1111111).Select("id, name").Row()
 	row.Scan(&id, &name)
-	log.Println(fmt.Sprintf("%d  %s", id, name))
+	log.Printf("%d  %s", id, name)
 
-	wait()
 	DB.Model(&User{}).Updates(User{ID: 1111111, Name: "xiaoming"})
-	log.Print("Updates")
+	log.Printf("Updates")
 
 	// Get data from DB
 	row = DB.Model(&User{}).Where("id = ?", 2222222).Select("id, name").Row()
 	row.Scan(&id, &name)
-	log.Println(fmt.Sprintf("%d  %s", id, name))
-	wait()
+	log.Printf("%d  %s", id, name)
 
 	// delete data from DB
 	if err := DB.Where(&User{ID: 1111111}).Delete(User{}).Error; err != nil {
 		panic(err)
 	}
-	log.Print("Delete")
+	log.Printf("Delete")
 }
