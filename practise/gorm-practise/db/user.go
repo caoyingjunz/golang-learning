@@ -8,12 +8,15 @@ import (
 
 type UserInterface interface {
 	GetUser(name string) (user models.User, err error)
-	CreateUser(id uint, name string) (err error)
+	CreateUser(name string) (err error)
 	UpdateUser(id string) (err error)
 	DeleleUser(id string) (err error)
 
 	// 获取多条记录
 	GetUsers(names []string) (users []models.User, err error)
+
+	// 通过Raw方式执行
+	GetRawUsers(names []string) (users []models.User, err error)
 }
 
 func NewUserDB() UserInterface {
@@ -31,6 +34,14 @@ func (u *UserDB) GetUser(name string) (user models.User, err error) {
 	return
 }
 
+func (u *UserDB) GetRawUsers(names []string) (user []models.User, err error) {
+	// 强制使用索引
+	if err = DB.Raw("select * from user force index(idx_user_name_age) where name in (?)", names).Scan(&user).Error; err != nil {
+		return
+	}
+	return
+}
+
 // names 应该是 Slices
 func (u *UserDB) GetUsers(names []string) (users []models.User, err error) {
 	if err = DB.Where("name in (?)", names).Find(&users).Error; err != nil {
@@ -39,9 +50,8 @@ func (u *UserDB) GetUsers(names []string) (users []models.User, err error) {
 	return
 }
 
-func (u *UserDB) CreateUser(id uint, name string) (err error) {
+func (u *UserDB) CreateUser(name string) (err error) {
 	user := models.User{
-		ID:        id,
 		Name:      name,
 		Age:       18,
 		CreatedAt: time.Now(),

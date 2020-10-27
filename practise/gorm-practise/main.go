@@ -10,18 +10,17 @@ import (
 // refer to http://gorm.book.jasperxu.com
 
 var (
-	id   uint = 123456
-	name      = "caoyingjun"
+	name = "caoyingjun"
 )
 
 func main() {
 	u := db.NewUserDB()
 
 	//  创建 user
-	//if err := u.CreateUser(id, name); err != nil {
-	//	log.Println("CreateUser", err.Error())
-	//	return
-	//}
+	if err := u.CreateUser(name); err != nil {
+		log.Println("CreateUser", err.Error())
+		return
+	}
 
 	user, err := u.GetUser(name)
 	if err != nil {
@@ -36,6 +35,13 @@ func main() {
 		return
 	}
 	fmt.Println("GetUsers:", users)
+
+	rawUsers, err := u.GetRawUsers([]string{name})
+	if err != nil {
+		log.Println("GetRawUsers", err.Error())
+		return
+	}
+	fmt.Println("GetRawUsers:", rawUsers)
 
 	if err := u.UpdateUser(name); err != nil {
 		log.Println("UpdateUser", err.Error())
