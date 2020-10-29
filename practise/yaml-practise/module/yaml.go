@@ -1,4 +1,4 @@
-package model
+package module
 
 type Yaml struct {
 	Mysql struct {
