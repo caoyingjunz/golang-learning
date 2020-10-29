@@ -9,9 +9,7 @@ import (
 	"golang-learning/practise/gorm-practise/models"
 )
 
-var (
-	DB *gorm.DB
-)
+var DB *gorm.DB
 
 func init() {
 	user := "kubez"
