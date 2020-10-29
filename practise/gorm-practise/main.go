@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"golang-learning/practise/gorm-practise/db"
+	"golang-learning/practise/gorm-practise/dbstone"
 )
 
 // refer to http://gorm.book.jasperxu.com
@@ -14,7 +14,7 @@ var (
 )
 
 func main() {
-	u := db.NewUserDB()
+	u := dbstone.NewUserDB()
 
 	//  创建 user
 	if err := u.CreateUser(name); err != nil {
