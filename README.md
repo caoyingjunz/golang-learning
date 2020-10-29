@@ -33,7 +33,7 @@
 10. interface (DOEN)
 11. sync.Mutex (TODO)
 12. gRPC (TODO)[官方文档](https://github.com/grpc/grpc-go)
-13. yaml (WIP) [yaml](https://www.jianshu.com/p/84499381a7da)
+13. yaml (DONE) [yaml](https://www.jianshu.com/p/84499381a7da)
 14. 匿名函数 (DONE)
 15. go-gorm (DONE)[中文文档](http://gorm.book.jasperxu.com/) | [官方文档](https://github.com/go-gorm/gorm)
 16. golang 操作rabbitMq（WIP）

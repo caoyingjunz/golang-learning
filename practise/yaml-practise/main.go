@@ -1,30 +1,28 @@
 package main
 
-import gopkg.in/yaml.v2
+import (
+	"fmt"
+	"golang-learning/practise/yaml-practise/module"
+	"io/ioutil"
 
-//refer to https://github.com/go-yaml/yaml
+	"gopkg.in/yaml.v2"
+)
+
+// refer to https://github.com/go-yaml/yaml
 // https://www.jianshu.com/p/84499381a7da
 
 func main() {
-	// resultMap := make(map[string]interface{})
-	conf := new(module.Yaml)
 	yamlFile, err := ioutil.ReadFile("test.yaml")
-
-	// conf := new(module.Yaml1)
-	// yamlFile, err := ioutil.ReadFile("test.yaml")
-
-	// conf := new(module.Yaml2)
-	//  yamlFile, err := ioutil.ReadFile("test1.yaml")
-
-	log.Println("yamlFile:", yamlFile)
 	if err != nil {
-		log.Printf("yamlFile.Get err #%v ", err)
+		panic(err)
 	}
-	err = yaml.Unmarshal(yamlFile, conf)
-	// err = yaml.Unmarshal(yamlFile, &resultMap)
+
+	config := new(model.Yaml)
+
+	err = yaml.Unmarshal(yamlFile, config)
 	if err != nil {
-		log.Fatalf("Unmarshal: %v", err)
+		panic(err)
 	}
-	log.Println("conf", conf)
-	// log.Println("conf", resultMap)
+
+	fmt.Println(config.Mysql.Host)
 }
