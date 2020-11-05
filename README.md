@@ -21,7 +21,7 @@
 3. qinling 代码分析（TODO）
 
 ## Golang
-1. logrus 的使用 (DONE) [官方文档](https://github.com/sirupsen/logrus)
+1. logrus 和 klog 的使用 (DONE) [官方文档](https://github.com/sirupsen/logrus) | [klog官方文档](https://github.com/kubernetes/klog)
 2. 并发 goroutine (DONE)
 3. slice 排序 (DONE)
 4. channel 实现并发和锁 (DONE), 排他锁 (WIP)
