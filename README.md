@@ -1,6 +1,6 @@
 # Golang Learning
 
-## Kubernetes
+## Kubernetes plan
 1. 写一个控制器，当一个应用启动的时候，保证其他的node上也有其镜像
 2. Prometheus 部署(DONE) [kube-prometheus](https://github.com/coreos/kube-prometheus)
 3. kubectl plugin [plugins](https://github.com/ahmetb/kubectx)
@@ -38,7 +38,8 @@
 15. go-gorm (DONE)[中文文档](http://gorm.book.jasperxu.com/) | [官方文档](https://github.com/go-gorm/gorm)
 16. golang 操作 rabbitMq（WIP）
 
-## Docs
+## Kubernetes Docs
 1. [kubernetes 经典网络分析](./doc/network.md)
-2. [kubectl exec 实现分析](./doc/kube-exec.md)
+2. [kubectl exec 实现分析](./doc/kubernetes/kubeexec.md)
 3. [kubernetes 集群快速搭建](https://github.com/yingjuncao/kubernetes-ansible)
+4. [自定义控制器](./doc/kubernetes/controller.md)
