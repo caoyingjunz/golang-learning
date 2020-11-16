@@ -1,0 +1,1 @@
+2020-11-18T23:58:42.458+0800	info	middleware/middleware.go:36	| 200 |     587.345µs |       127.0.0.1 | GET | /testlog?test=aa |
