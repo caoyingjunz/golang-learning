@@ -28,7 +28,7 @@
 3. qinling 代码分析（TODO）
 
 ## Golang
-1. logrus 和 klog 的使用 (DONE) [官方文档](https://github.com/sirupsen/logrus) | [klog官方文档](https://github.com/kubernetes/klog)
+1. logrus, klog, zap 的使用 (DONE) [官方文档](https://github.com/sirupsen/logrus) | [klog官方文档](https://github.com/kubernetes/klog)
 2. 并发 goroutine (DONE)
 3. slice 排序 (DONE)
 4. channel 实现并发和锁 (DONE), 排他锁 (WIP)
@@ -44,3 +44,4 @@
 14. 匿名函数 (DONE)
 15. go-gorm (DONE)[中文文档](http://gorm.book.jasperxu.com/) | [官方文档](https://github.com/go-gorm/gorm)
 16. golang 操作 rabbitMq（WIP）
+17. configor, ini 配置文件学习（WIP）[官方文档](https://github.com/jinzhu/configor)
