@@ -16,6 +16,7 @@
 13. 分析 `deployment` 创建流程（TODO）
 14. 分析 `pod` 创建流程（TODO）
 15. 分析 `scheduler` 工作流程 (TODO)
+16. 分析 `ListAndWatch` 原理(TODO)
 
 ## Kubernetes Docs
 1. [kubernetes 经典网络分析](./doc/network.md)
