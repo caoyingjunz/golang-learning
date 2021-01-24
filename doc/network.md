@@ -1,44 +1,26 @@
-# Kubernetes Service 随笔
+# Service 实现原理分析
 
-```
-阅读本文档时，可能需要选择 global mode， 否则无法正常查看截图
-```
+- 阅读本文档时，可能因为代理问题，无法正常查看截图
 
 ## 环境信息
-- kube version: v1.18.2
+- kubernetes: v1.18.2
 - cri: docker
 - cni: flannel
 - proxyMode: iptables
 
 ## iptables
-从 **iptables** 说起
+数据包在linux系统中，是绕不开 iptables 的，因为篇幅问题，本文不对 **iptables** 展开讨论，有兴趣的同学请移步 [Iptables](https://en.wikipedia.org/wiki/Iptables)
 
-iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different Netfilter modules
-
-详细请参考: [Iptables](https://en.wikipedia.org/wiki/Iptables) 和 [Netfilter](https://en.wikipedia.org/wiki/Netfilter)
-
-### iptables 四表五链的工作流程
+### iptables 的四表五链
 - **tables**: raw, mangle, filter, nat
 - **chains**: PREROUTING, FORWARD, INPUT, OUTPUT, POSTROUTING
 
-![iptables](./pictures/iptablesflow.png)
+    ![iptables](./pictures/iptablesflow.png)
 
-**PREROUTING**
-1. 数据包到达网络设备
-2. 进入 iptables 的 raw 表，此时报文还未进入内核，属于原始报文
-3. 进入 iptables 的 mangle 表，在 mangle 表里一般用来对报文做MARK
-4. 进入 iptables 的 nat 表，一般用来做 dnat 功能（修改报文的目的ip）
-
-**路由**
-
-**FORWARD**
-
-**POSTROUTING**
-
-## pod 的网络通信
-
-
-## Kubernetes Service 实现原理分析
+### kubernetes 支持的 serviceType
+  - `ClusterIP`
+  - `NodePort`
+  - `LoadBalancer`
 
 **ClusterIP**
 
@@ -86,23 +68,7 @@ iptables is a user-space utility program that allows a system administrator to c
     - 随后数据包进入 `POSTROUTING` 链的 `mangle` 和 `nat` 表，命中 `nat` 表的 `KUBE-POSTROUTING`,  完成 `MASQUERADE` 后，数据包离开本机，到达目的主机
     ![masq](./pictures/masq.png)
 
-
-**ClusterIP(headless)**
-
-1. 什么是无头服务？[Headless Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
-
-2. 创建一个无头服务 —— 指定服务类型为 `ClusterIP`, 且设置 `Spec.ClusterIP` 为 `None`， 对于无头服务，`kubernetes` 不会为其分配 `ClusterIP`, `kube-proxy` 也不会处理(无规则下发)，由 `dns` 根据 `selector` 自动配置转发：
-
-    - 如果配置 `selector`, `DNS` 直接指向后端 `pods`
-    - 如果未配置 `selector`, `DNS` 指向和 `service` 名称相同的任意后端, 或 externalName 类型的服务
-
-3. `headless service` 对应的 `endpoints`
-![headless](./pictures/headless-service.png)
-
-4. 通过 `nslookup` 解析无头服务域名对应的后端ip
-![nslookup](./pictures/headless2.png)
-
-5. 综上所述，无头服务通过 `dns` 的能力实现 `loadbalance` ，不经过 `kubernetes` 转发实现机制，直接将请求转发到后端的 `pod` 上
+- 无头服务(headless)在服务&外传区讨论，此处不做赘述
 
 **NodePort**
 
@@ -149,12 +115,30 @@ iptables is a user-space utility program that allows a system administrator to c
 7. `pod` 在本节点 （TODO）
 
 **LoadBalancer**
+    - 参考 **NodePort** 章节，**LoadBalancer** 和 **NodePort** 集群内实现原理大致相同，又因云厂商 `provider` 有所差异
 
-***TODO***
+### 服务&外传区
+
+**ClusterIP(headless)**
+
+1. 什么是无头服务？[Headless Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
+
+2. 创建一个无头服务 —— 指定服务类型为 `ClusterIP`, 且设置 `Spec.ClusterIP` 为 `None`， 对于无头服务，`kubernetes` 不会为其分配 `ClusterIP`, `kube-proxy` 也不会处理(无规则下发)，由 `dns` 根据 `selector` 自动配置转发：
+
+    - 如果配置 `selector`, `DNS` 直接指向后端 `pods`
+    - 如果未配置 `selector`, `DNS` 指向和 `service` 名称相同的任意后端, 或 externalName 类型的服务
+
+3. `headless service` 对应的 `endpoints`
+![headless](./pictures/headless-service.png)
+
+4. 通过 `nslookup` 解析无头服务域名对应的后端ip
+![nslookup](./pictures/headless2.png)
+
+5. 综上所述，无头服务通过 `dns` 的能力实现 `loadbalance` ，不经过 `kubernetes` 转发实现机制，直接将请求转发到后端的 `pod` 上
 
 **ExternalName**
 
-1. 直接作用于域名（可以用作 `kubernetes` 的跨 `namespaces` 服务访问）
+2. 直接作用于域名（可以用作 `kubernetes` 的跨 `namespaces` 服务访问）
    - `服务名`是 `namespaces` 隔离的 (test-svc.default.svc.cluster.local)
    - `ClusterIP` 是非 `namespaces` 隔离的
 
