@@ -22,9 +22,12 @@
 ## Kubernetes Docs
 1. [kubernetes 经典网络分析](./doc/network.md)
 2. [kubectl exec 实现分析](./doc/kubernetes/kubeexec.md)
-3. [kubernetes 集群快速搭建](https://github.com/yingjuncao/kubernetes-ansible)
+3. [kubernetes 集群快速搭建](https://github.com/caoyingjunz/kubez-ansible)
 4. [自定义控制器](./doc/kubernetes/controller.md)
 5. [Operator 代码分析](./doc/kubernetes/operator.md)
+6. [kube-proxy代码分析]（todo）
+7. [scheduler代码分析]（todo）
+8. [kubelet]（todo）
 
 ## OpenStack
 1. zun 代码分析 （TODO）
