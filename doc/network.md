@@ -112,10 +112,17 @@
        ![kube-post2](./pictures/kube-post2.png)
     - 完成 `POSTROUTING` 链之后，数据包正式离开 `node` 节点，返回给外端的请求端. 至此，整个流程结束.
 
-7. `pod` 在本节点 （TODO）
+7. `pod` 在本节点, 以 `172.30.3.2:80` 为例, 此时数据包已通过 `PREROUTING` 链
+
+    - 根据路由，命中本地，数据包将被送到容器网关 `cni0` 设备
+  ![nodeportcni](./pictures/nodeportcni.png)
+    - 数据包依次进入 `INPUT` 链的 `mangle` 和 `filter` 表，未命中任何规则，直接通过
+    - 数据包在处理完之后，进入 routering decision 阶段，路由后，依次进入 OUTPUT 链的 raw, mangle, nat, filter 表，未命中任何规则，直接通过
+    - 数据包通过 `OUTPUT` 链后, 进行 `routering decision` ，随后数据包进入 `POSTROUTING` 链的 `mangle` 和 `nat` 表, `mangle` 表直接通过，数据包进入 `nat` 表会命中 `KUBE-POSTROUTING` 链，根据 `KUBE-MARK-MASQ` 的 MARK 完成 `MASQUERADE`. 然后 `数据包` 根据 `conntrack` 离开宿主机. 至此，整个流程结束.
 
 **LoadBalancer**
-    - 参考 **NodePort** 章节，**LoadBalancer** 和 **NodePort** 集群内实现原理大致相同，又因云厂商 `provider` 有所差异
+
+   - 参考 **NodePort** 章节，**LoadBalancer** 和 **NodePort** 集群内实现原理大致相同，又因云厂商 `provider` 有所差异
 
 ### 服务&外传区
 
@@ -138,17 +145,6 @@
 
 **ExternalName**
 
-2. 直接作用于域名（可以用作 `kubernetes` 的跨 `namespaces` 服务访问）
+1. 直接作用于域名（可以用作 `kubernetes` 的跨 `namespaces` 服务访问）
    - `服务名`是 `namespaces` 隔离的 (test-svc.default.svc.cluster.local)
    - `ClusterIP` 是非 `namespaces` 隔离的
-
-```bash
-apiVersion: v1
-kind: Service
-metadata:
-  name: test-service
-  namespace: default
-spec:
-  type: ExternalName
-  externalName: test-svc.default.svc.cluster.local
-```
