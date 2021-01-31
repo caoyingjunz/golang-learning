@@ -19,10 +19,10 @@ func (tc *TestController) AddItems() {
 }
 
 func (tc *TestController) processNextWorkItem() bool {
+	var item string
 
 	if len(tc.queue) > 0 {
-		item := tc.queue[0]
-		tc.queue = tc.queue[1:]
+		item, tc.queue = tc.queue[0], tc.queue[1:]
 		log.Println("Process item ", item)
 	}
 
