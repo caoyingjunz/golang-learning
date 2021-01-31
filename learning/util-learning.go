@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -9,23 +10,36 @@ import (
 
 type TestController struct {
 	queue []string
+
+	syncHandler func(rsKey string) error
+}
+
+func (tc *TestController) syncTestHandler(key string) error {
+	startTime := time.Now()
+	defer func() {
+		fmt.Println(key, time.Since(startTime))
+	}()
+
+	var item string
+	if len(tc.queue) > 0 {
+		item, tc.queue = tc.queue[0], tc.queue[1:]
+		log.Println("Process item ", item)
+	}
+	return nil
 }
 
 func (tc *TestController) AddItems() {
 	for {
 		time.Sleep(1 * time.Second)
-		tc.queue = append(tc.queue, time.Now().String())
+		ts := time.Now().String()
+		tc.queue = append(tc.queue, ts)
+		fmt.Println("AddItems", tc.queue)
+
 	}
 }
 
 func (tc *TestController) processNextWorkItem() bool {
-	var item string
-
-	if len(tc.queue) > 0 {
-		item, tc.queue = tc.queue[0], tc.queue[1:]
-		log.Println("Process item ", item)
-	}
-
+	tc.syncHandler("processNextWorkItem")
 	return true
 }
 
@@ -61,6 +75,8 @@ func main() {
 	tc := TestController{
 		queue: make([]string, 0),
 	}
+
+	tc.syncHandler = tc.syncTestHandler
 
 	go tc.AddItems()
 
