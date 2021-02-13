@@ -8,14 +8,12 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-var clientset *kubernetes.Clientset
-
 func main() {
 	config, err := clientcmd.BuildConfigFromFlags("", "/Users/caoyuan/.kube/config")
 	if err != nil {
 		panic(err)
 	}
-	clientset, err = kubernetes.NewForConfig(config)
+	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
 		panic(err)
 	}
