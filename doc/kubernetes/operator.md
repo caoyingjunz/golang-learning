@@ -9,8 +9,9 @@ sudo cp operator-sdk_darwin_amd64 /usr/local/go/bin/operator-sdk
 ```
 
 ### 初始化项目
-[quickstart](https://sdk.operatorframework.io/docs/building-operators/golang/quickstart/)
-[example](http://www.dockone.io/article/8733)
+* [Quickstart](https://sdk.operatorframework.io/docs/building-operators/golang/quickstart/)
+* [Example](http://www.dockone.io/article/8733)
+* [Fulltutorial](https://sdk.operatorframework.io/docs/building-operators/golang/tutorial/)
 
 ```
 mkdir podset-operator
@@ -33,3 +34,9 @@ export USERNAME=<quay-namespace>
 export OPERATOR_IMG="quay.io/$USERNAME/memcached-operator:v0.0.1"
 make docker-build docker-push IMG=$OPERATOR_IMG
 ```
+
+### 部署 CRD
+```
+ kubectl apply -f config/samples/cache_v1alpha1_podset.yaml
+```
+
