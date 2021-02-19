@@ -6,18 +6,17 @@
 3. kubectl plugin （DONE）[plugins](https://github.com/ahmetb/kubectx)
 4. 容器内部访问 k8s api （DONE）[参考](https://www.jianshu.com/p/b1a723033a3c)
 5. k8s 首先看 event 和 ns (DONE)
-6. 自定义 crd 开发(WIP)
-7. k8s ingress 跨域 [ingress](https://blog.csdn.net/u012375924/article/details/94360425)
-8. K8s pod 出外网 (DONE) 请求先到网关（cni），直接使用 host 的路由出外网
-9. Docker 集成 ovs [ovs-docs](https://docs.openvswitch.org/en/latest/intro/install/general/#obtaining-open-vswitch-sources)
-10. 学习 loadbalancer 实现 [cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack)
-11. iptables&ipvs实现负载均衡（DONE)
-12. API Watch 实现[watch](https://www.jianshu.com/p/1cb577f750f0)
-13. 分析 `deployment` 创建流程（TODO）
-14. 分析 `pod` 创建流程（TODO）
-15. 分析 `scheduler` 工作流程 (TODO)
-16. 分析 `ListAndWatch` 原理(TODO)
-17. `istio` (TODO)
+6. k8s ingress 跨域 [ingress](https://blog.csdn.net/u012375924/article/details/94360425)
+7. K8s pod 出外网 (DONE) 请求先到网关（cni），直接使用 host 的路由出外网
+8. Docker 集成 ovs [ovs-docs](https://docs.openvswitch.org/en/latest/intro/install/general/#obtaining-open-vswitch-sources)
+9.  学习 loadbalancer 实现 [cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack)
+10. iptables&ipvs实现负载均衡（DONE)
+11. API Watch 实现[watch](https://www.jianshu.com/p/1cb577f750f0)
+12. 分析 `deployment` 创建流程（WIP）
+13. 分析 `pod` 创建流程（TODO）
+14. 分析 `scheduler` 工作流程 (TODO)
+15. 分析 `ListAndWatch` 原理(TODO)
+16. `istio` (TODO)
 
 ## Kubernetes Docs
 1. [kubernetes 经典网络分析](./doc/network.md)
@@ -25,9 +24,9 @@
 3. [kubernetes 集群快速搭建](https://github.com/caoyingjunz/kubez-ansible)
 4. [自定义控制器](./doc/kubernetes/controller.md)
 5. [Operator 代码分析](./doc/kubernetes/operator.md)
-6. [kube-proxy代码分析]（WIP）
-7. [scheduler代码分析]（TODO）
-8. [kubelet]（TODO）
+6. [kube-proxy代码分析](https://github.com/caoyingjunz/kubezspaces/blob/master/docs/kubernetes/kube-proxy.md)
+7. [scheduler代码分析](TODO)
+8. [kubelet](TODO)
 
 ## OpenStack
 1. zun 代码分析 （TODO）
