@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"time"
 
@@ -13,10 +12,9 @@ import (
 )
 
 func main() {
-	kubeconfig := flag.String("kubeconfig", "/Users/caoyuan/.kube/config", "(optional) absolute path to the kubeconfig file")
-	flag.Parse()
 
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+	kubeconfigPath := "/Users/caoyuan/.kube/config"
+	config, err := clientcmd.BuildConfigFromFlags("", kubeconfigPath)
 	if err != nil {
 		panic(err)
 	}
