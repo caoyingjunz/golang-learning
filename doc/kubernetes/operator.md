@@ -16,7 +16,7 @@ sudo cp operator-sdk_darwin_amd64 /usr/local/go/bin/operator-sdk
 ```
 mkdir podset-operator
 cd podset-operator
-operator-sdk init --domain example.com --repo github.com/example/podset-operator
+operator-sdk init --domain github.com --repo github.com/caoyingjunz/podset-operator
 ```
 
 ### 创建 api
@@ -28,15 +28,15 @@ operator-sdk create api --group cache --version v1alpha1 --kind PodSet --resourc
 ### 自定义控制器代码
 TODO
 
-### 使用内置的 Makefile build and push image
+### build and push image
+
 ```
-export USERNAME=<quay-namespace>
-export OPERATOR_IMG="quay.io/$USERNAME/memcached-operator:v0.0.1"
-make docker-build docker-push IMG=$OPERATOR_IMG
+docker build -f Dockerfile . -t jacky06/podset-operator:v0.0.1
+docker push jacky06/podset-operator:v0.0.1
 ```
 
 ### 部署 CRD
 ```
- kubectl apply -f config/samples/cache_v1alpha1_podset.yaml
+kubectl apply -f config/samples/cache_v1alpha1_podset.yaml
 ```
 
