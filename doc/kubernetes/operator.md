@@ -16,7 +16,7 @@ sudo cp operator-sdk_darwin_amd64 /usr/local/go/bin/operator-sdk
 ```
 mkdir podset-operator
 cd podset-operator
-operator-sdk init --domain example.com --repo github.com/example/podset-operator
+operator-sdk init --domain github.com --repo github.com/caoyingjunz/podset-operator
 ```
 
 ### 创建 api
