@@ -41,7 +41,7 @@
 5. go-restful (DONE) [官方文档](https://github.com/emicklei/go-restful)
 6. cobra (DONE) [官方文档](https://github.com/spf13/cobra)
 7. map 的同时读写 [官方文档](https://golang.org/pkg/sync/#Map)
-8. context (WIP) [context](https://mp.weixin.qq.com/s/GpVy1eB5Cz_t-dhVC6BJNw)
+8. context (DONE) [context](https://mp.weixin.qq.com/s/GpVy1eB5Cz_t-dhVC6BJNw)
 9. 协程的调度机制(TODO)
 10. interface (DOEN)
 11. sync.Mutex (TODO)
