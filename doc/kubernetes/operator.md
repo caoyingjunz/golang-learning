@@ -40,7 +40,6 @@ make install
 TODO
 
 ### Build and push image
-
 ```
 docker build -f Dockerfile . -t jacky06/podset-operator:v0.0.1
 docker push jacky06/podset-operator:v0.0.1
