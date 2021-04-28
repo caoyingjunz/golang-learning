@@ -12,8 +12,20 @@ type DataWriter interface {
 	CanWrite() bool
 }
 
-type file struct {
+type dataWriter struct{}
+
+func (d *dataWriter) WriteData(data interface{}) error {
+	return nil
 }
+
+func (d *dataWriter) CanWrite() bool {
+	return false
+}
+
+// 用于检查 dataWriter 是否实现了 DataWriter 接口
+var _ DataWriter = &dataWriter{}
+
+type file struct{}
 
 func (f *file) WriteData(data interface{}) error {
 	fmt.Println("writedata:", data)
