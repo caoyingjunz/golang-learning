@@ -1,7 +1,7 @@
 # Golang Learning
 
 ## Kubernetes Plans
-1. 写一个控制器，当一个应用启动的时候，保证其他的node上也有其镜像（WIP）
+1. 写一个控制器，当一个应用启动的时候，保证其他的node上也有其镜像（Done）
 2. Prometheus 部署(DONE) [kube-prometheus](https://github.com/coreos/kube-prometheus)
 3. kubectl plugin （DONE）[plugins](https://github.com/ahmetb/kubectx)
 4. 容器内部访问 k8s api （DONE）[参考](https://www.jianshu.com/p/b1a723033a3c)
@@ -12,10 +12,10 @@
 9.  学习 loadbalancer 实现 [cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack)
 10. iptables&ipvs实现负载均衡（DONE)
 11. API Watch 实现[watch](https://www.jianshu.com/p/1cb577f750f0)
-12. 分析 `deployment` 创建流程（WIP）
-13. 分析 `pod` 创建流程（TODO）
-14. 分析 `scheduler` 工作流程 (TODO)
-15. 分析 `ListAndWatch` 原理(TODO)
+12. 分析 `deployment` 创建流程（Done）
+13. 分析 `pod` 创建流程（Done）
+14. 分析 `scheduler` 工作流程 (Done)
+15. 分析 `ListAndWatch` 原理(Done)
 16. `istio` (TODO)
 
 ## Kubernetes Docs
