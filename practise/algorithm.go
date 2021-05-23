@@ -30,21 +30,6 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	return head
 }
 
-// 删除单向链表的第 n 个节点
-func removeNode(head *ListNode, n int) *ListNode {
-	if head == nil {
-		return head
-	}
-
-	var tmp *ListNode
-	tmp = head
-
-	for i := 0; i < n; i++ {
-		head = head.Next
-	}
-
-}
-
 func findPreNode(head *ListNode, val int) *ListNode {
 	if head == nil || head.Next == nil {
 		return nil
@@ -73,19 +58,23 @@ func deleteNode(head *ListNode, val int) {
 		return
 	}
 
-	// 定义一个临时变量
-	q := preNode.Next
-	preNode.Next = preNode.Next
+	preNode.Next = preNode.Next.Next
 }
 
-// 链表反转 https://www.cnblogs.com/TimLiuDream/p/9932494.html
+// 链表反转 https://studygolang.com/articles/30705
 func reverseList(head *ListNode) *ListNode {
-	cur := head
-	var pre *ListNode = nil
-	for cur != nil {
-		pre, cur, cur.Next = cur, cur.Next, pre //这句话最重要
+	var newHead, temp *ListNode
+	for head != nil {
+		// 赋值头head到临时节点
+		temp = head
+		// pHead移到了下一位
+		head = head.Next
+		// 对新链表做头插
+		temp.Next = newHead
+		// newHead前移动，准备下一次循环
+		newHead = temp
 	}
-	return pre
+	return newHead
 }
 
 // https://leetcode-cn.com/problems/two-sum/
