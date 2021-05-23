@@ -78,26 +78,14 @@ func deleteNode(head *ListNode, val int) {
 	preNode.Next = preNode.Next
 }
 
-// 链表反转 https://blog.csdn.net/YMY_mine/article/details/105105654
+// 链表反转 https://www.cnblogs.com/TimLiuDream/p/9932494.html
 func reverseList(head *ListNode) *ListNode {
-	// 如果不存在 node 或者 只有一个 node，不需要做反转
-	if head == nil || head.Next == nil || head.Next.Next == nil {
-		return nil
+	cur := head
+	var pre *ListNode = nil
+	for cur != nil {
+		pre, cur, cur.Next = cur, cur.Next, pre //这句话最重要
 	}
-
-	// 创建临时变量
-	var q *ListNode
-
-	p := head.Next
-	head.Next = nil
-	for p != nil {
-		q = p.Next
-		p.Next = head.Next
-		head.Next = p
-		p = q
-	}
-
-	return head
+	return pre
 }
 
 // https://leetcode-cn.com/problems/two-sum/
