@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type ListNode struct {
 	Val  int
@@ -91,4 +94,29 @@ func FindIndex(nums []int, target int) []int {
 	}
 
 	return []int{i, j}
+}
+
+func main() {
+
+	a := []int{1, 5, 6}
+	b := []int{4, 7}
+
+	vs := strings.Split()
+
+
+	func comparSlice(v1slice,v2slice []string )int{
+		for index,_ :=range v1slice{
+		if v1slice[index] > v2slice[index]{
+		return version1
+	}
+		if v1slice[index] < v2slice[index]{
+		return version2
+	}
+		if len(v1slice)-1 == index {
+		return  version0
+	}
+	}
+		return  version0
+	}
+
 }
